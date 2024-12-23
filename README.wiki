@@ -1,0 +1,79 @@
+== ES-like string library ==
+
+This library is intended to provide a set of string operations like in the ECMAScript. All methods in this library are static. For example, invoking <code>String.split("a b", " ")</code> is equivalent to <code>"a b".split(" ")</code> in ECMAScript.
+
+Works with Python 2.7 and 3.5+.
+
+=== str or bytes ===
+
+Both <code>str</code> (<code>unicode</code> in Python 2) and <code>bytes</code> (<code>str</code> in Python 2) are supported. The output (if it is a string) will have the same type as the input. However, <code>String()</code> always returns a unicode string (<code>str</code>, <code>unicode</code> in Python 2) regardless the input. 
+
+=== Behavior different from ECMAScript ===
+
+==== Common differences ====
+
+These are some common differences between <code>String.xxx(...)</code> and <code>String.prototype.xxx.call(...)</code> in ECMAScript:
+
+# Strict typing: Passing the object other than string or <code>null</code> causes a <code>TypeError</code>.
+# Integer is required: An integer is required for the parameter referring to an index. If the parameter is not an <code>int</code> (such as <code>numpy.int64</code>), it must have the method <code>__index__</code> that returns an <code>int</code>, or a <code>TypeError</code> will be thrown.
+# One char one point: Since the string in Python is UTF-32, a code unit is just a code point. Also, there are no surrogate pairs in Python's string.
+
+==== Not implemented methods ====
+
+These methods are not implemented, which are deprecated and useless:
+
+# <code>codePointAt</code>: A code unit is just a code point for Python's <code>str</code>. Just use <code>charCodeAt</code>.
+# <code>fromCodePoint</code>: Same as the above.
+# <code>charAt</code>: In very old browsers, the characters in the string can not be accessed by the property accessor <code>[]</code>. This is no longer a problem in ES5 (also Python), and <code>charAt</code> is rarely used in modern ES. Just replace <code>string.charAt(index)</code> with <code>string[index]</code> if the character in a specified index is needed.
+
+These methods have not been implemented yet, which rely on the regular expression library:
+
+# <code>match</code>
+# <code>search</code>
+# <code>replace</code>
+# In addition, <code>split</code> does not support regex as the first parameter.
+
+=== Referece ===
+
+Some contents in this section is modified from the corresponding [[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String|MDN Reference]], where you may refer for detailed description.
+
+Unless otherwise specified, the term <code>String</code> object is used for unicode string, which is <code>str</code> in Python 3, or <code>unicode</code> in Python 2. <code>bytes</code> is used for bytes(or <code>str</code> in Python 2).
+
+==== String ====
+
+The <code>String()</code> constructor creates <code>String</code> objects. <code>String()</code> always returns unicode string in both Python 2 and Python 3.
+
+When called with a parameter <code>value</code>, the result is:
+
+# Empty string <code>""</code> if no parameters.
+# <code>value</code>, if <code>value</code> is a <code>String</code>.
+# <code>"null"</code>, if <code>value</code> is <code>None</code> (that is, <code>null</code> in yags-lang).
+# <code>"true"</code> or <code>"false"</code> for boolean.
+# If value is a <code>bytes</code>, it will be converted to binary String "literally", that is, convert the byte into its corresponding unicode code (in Latin-1). \x00 => \u0000, \x01 => \u0001, ..., \xff => \u00ff
+# Otherwise, use Python's internal tostring operation. (that is, call __str__ or __repr__ method of the object)
+
+<code>String</code> can be used for instance check (<code>instanceof</code>), which returns <code>true</code> only if the object is a <code>String</code> object.
+
+==== String.fromCharCode ====
+
+==== String.charCodeAt ====
+
+==== String.concat ====
+
+==== String.indexOf ====
+
+==== String.lastIndexOf ====
+
+==== String.slice ====
+
+==== String.split ====
+
+==== String.substring ====
+
+==== String.substr ====
+
+==== String.toLowerCase ====
+
+==== String.toUpperCase ====
+
+==== String.trim ====
