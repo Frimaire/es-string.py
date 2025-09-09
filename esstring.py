@@ -18,7 +18,14 @@ from __future__ import print_function, absolute_import, division, generators
 
 def __():
     from sys import version_info
-    global String
+    global String, ES_LINE_TERMINATOR, ES_WHITE_SPACE
+
+    ES_LINE_TERMINATOR = (u'\x0A', u'\x0D', u'\u2028', u'\u2029')
+    ES_WHITE_SPACE = (u'\x09', u'\x0B', u'\x0C', u'\x20', u'\xA0',
+                      u'\u1680', u'\u180E', u'\u2000', u'\u2001', u'\u2002',
+                      u'\u2003', u'\u2004', u'\u2005', u'\u2006', u'\u2007',
+                      u'\u2008', u'\u2009', u'\u200A', u'\u202F', u'\u205F',
+                      u'\u3000', u'\uFEFF')
 
     ISPY2 = version_info.major < 3
     strT = type(u'')

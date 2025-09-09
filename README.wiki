@@ -50,7 +50,7 @@ When called with a parameter <code>value</code>, the result is:
 # <code>"null"</code>, if <code>value</code> is <code>None</code> (that is, <code>null</code> in yags-lang).
 # <code>"true"</code> or <code>"false"</code> for boolean.
 # If value is a <code>bytes</code>, it will be converted to binary String "literally", that is, convert the byte into its corresponding unicode code (in Latin-1). \x00 => \u0000, \x01 => \u0001, ..., \xff => \u00ff
-# Otherwise, use Python's internal tostring operation. (that is, call __str__ or __repr__ method of the object)
+# Otherwise, use Python's internal tostring operation. (that is, call <code>__str__</code> or <code>__repr__</code> method of the object)
 
 <code>String</code> can be used for instance check (<code>instanceof</code>), which returns <code>true</code> only if the object is a <code>String</code> object.
 
